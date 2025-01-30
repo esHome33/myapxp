@@ -34,7 +34,7 @@ const BtnBRAKES = (props: Props) => {
                 e.preventDefault()
                 toggleAP()
             }}
-            className={`rounded border-2 ${color} min-w-24 h-10 p-2 text-center text-sm hover:bg-slate-800 bg-slate-700 mt-2 md:ml-1`}
+            className={`rounded border-2 ${color} min-w-24 h-10 p-2 text-center text-sm hover:bg-slate-800 dark:bg-slate-700 bg-slate-300 mt-2 md:ml-1`}
         >
             PARK
         </div>
