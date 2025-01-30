@@ -64,10 +64,10 @@
           {
             "pattern": "~/**",
             "group": "external",
-            "position": "after"
+            "position": "after"            
           }
         ],
-        "newlines-between": "off"
+        "newlines-between": "always"
       }
     ],
     "react/self-closing-comp": "warn",
