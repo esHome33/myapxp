@@ -53,7 +53,7 @@ export default function Home() {
                         `XPWeb server error ${rep.status} for dataref ${the_refs[i]}`,
                     )
                 }
-            } catch (error) {
+            } catch  {
                 console.log(
                     `XPlane not running when getting dataref n°${i} : ${the_refs[i]}`,
                 )
@@ -94,8 +94,9 @@ export default function Home() {
             } else {
                 console.log(`XPWeb server error ${rep.status}`)
             }
-        } catch (error) {
+        } catch  {
             //console.log('XPlane not running')
+            
             setPlane('XPWeb server is down or XPlane not running')
         }
         setEnabled(true)

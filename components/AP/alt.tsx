@@ -8,23 +8,20 @@ type Props = {
 }
 
 const Alt = (props: Props) => {
-
     const DEFAULT_INCREMENT = 10
 
     const AP = useAPStore()
     const [val, setVal] = useState<string>(AP.alt_sel)
 
-
     const setValue = (val: number | number[]) => {
         if (Array.isArray(val)) {
             return
         }
-        const part = Math.round(val / 100) * 100;
+        const part = Math.round(val / 100) * 100
         const new_val = `${part}`
         setVal(new_val)
         AP.setAltSel(new_val, props.ip)
     }
-
 
     const inc = (val: string) => {
         const how_much = DEFAULT_INCREMENT
@@ -43,10 +40,10 @@ const Alt = (props: Props) => {
         const how_much = DEFAULT_INCREMENT
         const valeur = parseFloat(val)
         let new_val = valeur - how_much
-        if(new_val < 0) {
+        if (new_val < 0) {
             new_val = 0
         }
-        
+
         AP.setAltSel(new_val.toFixed(0), props.ip)
         if (new_val > 0) {
             return `${new_val.toFixed(0)}`
@@ -60,11 +57,8 @@ const Alt = (props: Props) => {
         <div className="rounded border border-slate-500 p-2 w-fit">
             <div>ALT SEL</div>
             <div className="flex flex-row gap-1 justify-between">
-                <div
-                    className="rounded bg-transparent text-white w-10 h-8 py-1 select-none"
-                >
-                    
-                </div>
+                <div className="rounded bg-transparent text-white w-10 h-8 py-1 select-none" />
+
                 <div
                     onClick={(e) => {
                         e.preventDefault()

@@ -18,7 +18,6 @@ export const metadata: Metadata = {
         icon: '/favicon.ico',
     },
     manifest: '/app.webmanifest',
-    
 }
 
 export const viewport: Viewport = {
@@ -49,11 +48,10 @@ export default function RootLayout({
                         <Navbar />
                         <main className="container mx-auto max-w-7xl pt-16 px-6 flex-grow">
                             {children}
-                        </main>                        
+                        </main>
                     </div>
                 </Providers>
             </body>
         </html>
     )
 }
-

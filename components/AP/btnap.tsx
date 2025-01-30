@@ -8,7 +8,7 @@ type Props = { ip: string }
 const BtnAP = (props: Props) => {
     const AP = useAPStore()
     const [on, setOn] = useState<boolean>(AP.ap_button)
-    const [color, setColor] = useState<string>('')
+    
     const toggleAP = () => {
         setOn(!on)
         AP.toggleAPButton(props.ip)

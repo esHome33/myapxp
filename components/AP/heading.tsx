@@ -1,7 +1,7 @@
 'use client'
 import { useAPStore } from '@/stores/autopilot'
 import { Slider } from '@heroui/slider'
-import { TouchEvent, useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type Props = {
     ip: string

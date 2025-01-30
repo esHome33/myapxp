@@ -2,8 +2,7 @@
     "tabWidth": 4,
     "useTabs": false,
     "printWidth": 80,
-    "semi": false,
-    "endOfLine": "crlf",
+    "semi": false,    
     "parser": "typescript",
     "singleQuote": true
 }
