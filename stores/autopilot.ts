@@ -1,3 +1,4 @@
+import { cree_URL_CMD, cree_URL_Set_DR } from '@/lib/urlmaker'
 import { create } from 'zustand'
 import { persist, createJSONStorage } from 'zustand/middleware'
 
@@ -18,7 +19,7 @@ interface AutopilotElements {
 }
 
 interface AutopilotActions {
-    setAltSel: (alt_sel: string, ip: string) => void
+    setAltSel: (altSel: string, ip: string) => void
     setVsSel: (vs_sel: string, ip: string) => void
     setHeadingSel: (heading_sel: string, ip: string) => void
     setSpeedSel: (speed_sel: string, ip: string) => void
@@ -39,7 +40,6 @@ interface AutopilotActions {
 
     analyse: (data: XPWebResponse, ip: string) => void
 }
-
 type AutopilotState = AutopilotElements & AutopilotActions
 
 export type XPWebResponse = [
@@ -72,7 +72,7 @@ export const parseAP = (
     data: XPWebResponse,
     ip: string,
     g: () => AutopilotState,
-    s: (param:Partial<AutopilotState>)=>void,
+    s: (p:Partial<AutopilotState>)=>void,
 ) => {
     for (let i = 0; i < data.length; i++) {
         const d = data[i]
@@ -137,8 +137,7 @@ export const parseAP = (
 }
 
 const changeVS_SEL = async (new_val: string, ipa: string, s: any) => {
-    const url = new URL(`http://${ipa}/set_dataref`)
-    url.port = '7712'
+    const url = cree_URL_Set_DR(ipa)
 
     try {
         const rep = await fetch(url, {
@@ -156,14 +155,13 @@ const changeVS_SEL = async (new_val: string, ipa: string, s: any) => {
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch {
         console.log('XPlane not running')
     }
 }
 
 const changeHEAD_SEL = async (new_val: string, ipa: string, s: any) => {
-    const url = new URL(`http://${ipa}/set_dataref`)
-    url.port = '7712'
+    const url = cree_URL_Set_DR(ipa)
 
     const new_val_corrige = parseFloat(new_val).toFixed(0)
 
@@ -183,14 +181,13 @@ const changeHEAD_SEL = async (new_val: string, ipa: string, s: any) => {
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch  {
         console.log('XPlane not running')
     }
 }
 
-const changeALT_SEL = async (new_val: string, ipa: string, s: (p:Partial<AutopilotState>)=>void) => {
-    const url = new URL(`http://${ipa}/set_dataref`)
-    url.port = '7712'
+const changeALT_SEL = async (new_val: string, ipa: string, s: (_p:Partial<AutopilotState>)=>void) => {
+    const url = cree_URL_Set_DR(ipa)
 
     const new_val_corrige = parseFloat(new_val).toFixed(0)
 
@@ -210,14 +207,13 @@ const changeALT_SEL = async (new_val: string, ipa: string, s: (p:Partial<Autopil
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch  {
         console.log('XPlane not running')
     }
 }
 
 const changeSPEED_SEL = async (new_val: string, ipa: string, s: (p:Partial<AutopilotState>)=>void) => {
-    const url = new URL(`http://${ipa}/set_dataref`)
-    url.port = '7712'
+    const url = cree_URL_Set_DR(ipa)
 
     const new_val_corrige = parseFloat(new_val).toFixed(0)
 
@@ -237,15 +233,14 @@ const changeSPEED_SEL = async (new_val: string, ipa: string, s: (p:Partial<Autop
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch  {
         console.log('XPlane not running in changeSPEED_SEL')
     }
 }
 
 const toggleAP = async (ip: string, new_val: boolean, s: (p:Partial<AutopilotState>)=>void) => {
     const dr = 'sim/cockpit2/autopilot/flight_director_mode'
-    const url = new URL(`http://${ip}/set_dataref`)
-    url.port = '7712'
+    const url = cree_URL_Set_DR(ip)
     let valeur: string
     if (new_val) {
         valeur = '2'
@@ -269,7 +264,7 @@ const toggleAP = async (ip: string, new_val: boolean, s: (p:Partial<AutopilotSta
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch  {
         console.log('XPlane not running sur toggleAP')
     }
 }
@@ -277,8 +272,7 @@ const toggleAP = async (ip: string, new_val: boolean, s: (p:Partial<AutopilotSta
 // for the parking brakes
 const togglePB = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotElements>)=>void) => {
     const dr = 'sim/flightmodel/controls/parkbrake'
-    const url = new URL(`http://${ip}/set_dataref`)
-    url.port = '7712'
+    const url = cree_URL_Set_DR(ip)
     let valeur: string
     if (new_val) {
         valeur = '1'
@@ -302,7 +296,7 @@ const togglePB = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotE
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch  {
         console.log('XPlane not running sur togglePB')
     }
 }
@@ -311,8 +305,7 @@ const togglePB = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotE
 // for the HDG button
 const toggleHDG = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotElements>)=>void) => {
     const dr = 'sim/cockpit2/autopilot/heading_mode'
-    const url = new URL(`http://${ip}/set_dataref`)
-    url.port = '7712'
+    const url = cree_URL_Set_DR(ip)
     let valeur: string
     if (new_val) {
         valeur = '1'
@@ -336,7 +329,7 @@ const toggleHDG = async (ip: string, new_val: boolean, s: (elt:Partial<Autopilot
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch {
         console.log('XPlane not running sur toggleHDG')
     }
 }
@@ -344,11 +337,7 @@ const toggleHDG = async (ip: string, new_val: boolean, s: (elt:Partial<Autopilot
 // for the APP button
 const toggleAPP = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotElements>)=>void) => {
     const dr = 'sim/autopilot/approach'
-    const url = new URL(`http://${ip}/command`)
-    url.port = '7712'
-    const sp = new URLSearchParams()
-    sp.set('command', dr)
-    url.search = sp.toString()
+    const url = cree_URL_CMD(ip, dr)
 
     try {
         const rep = await fetch(url, {
@@ -362,7 +351,7 @@ const toggleAPP = async (ip: string, new_val: boolean, s: (elt:Partial<Autopilot
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch {
         console.log('XPlane not running sur toggleAPP')
     }
 }
@@ -370,11 +359,7 @@ const toggleAPP = async (ip: string, new_val: boolean, s: (elt:Partial<Autopilot
 // for the VS button
 const toggleVS = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotElements>)=>void) => {
     const dr = 'sim/autopilot/alt_vs'
-    const url = new URL(`http://${ip}/command`)
-    url.port = '7712'
-    const sp = new URLSearchParams()
-    sp.set('command', dr)
-    url.search = sp.toString()
+    const url = cree_URL_CMD(ip, dr)
     try {
         const rep = await fetch(url, {
             method: 'POST',
@@ -387,7 +372,7 @@ const toggleVS = async (ip: string, new_val: boolean, s: (elt:Partial<AutopilotE
         } else {
             console.log(`not ok ${rep.status} ${JSON.stringify(rep.json())}`)
         }
-    } catch (error) {
+    } catch  {
         console.log('XPlane not running sur toggleVS')
     }
 }

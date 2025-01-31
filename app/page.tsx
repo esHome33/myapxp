@@ -7,6 +7,7 @@ import BtnVS from '@/components/AP/btnvs'
 import Heading from '@/components/AP/heading'
 import Speed from '@/components/AP/speed'
 import Vs from '@/components/AP/vs'
+import { cree_URL_Get_DR } from '@/lib/urlmaker'
 import { myDR, useAPStore, XPWebResponse } from '@/stores/autopilot'
 import { useIpAddressStore } from '@/stores/ipadress_store'
 import { useEffect, useState } from 'react'
@@ -31,8 +32,7 @@ export default function Home() {
     const get_more_datarefs = async () => {
         const the_refs = myDR
         const nbiter = the_refs.length
-        const url = new URL(`http://${ipa}/get_dataref`)
-        url.port = '7712'
+        const url = cree_URL_Get_DR(ipa)
         const sp = new URLSearchParams()
         let rep: Response
 
@@ -72,8 +72,7 @@ export default function Home() {
     }
 
     const check = async () => {
-        const url = new URL(`http://${ipa}/get_dataref`)
-        url.port = '7712'
+        const url = cree_URL_Get_DR(ipa)
         const sp = new URLSearchParams()
         let rep: Response
 
