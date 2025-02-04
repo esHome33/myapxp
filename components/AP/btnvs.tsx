@@ -28,15 +28,15 @@ const BtnVS = (props: Props) => {
     }
 
     return (
-        <div
+        <button
             onClick={(e) => {
                 e.preventDefault()
                 toggleVS()
             }}
-            className={`rounded border-2 ${colorVS(on)} min-w-24 h-10 p-2 text-center text-sm hover:bg-slate-800 mt-2 md:ml-1`}
+            className={`rounded border-2 ${colorVS(on)} min-w-24 h-14 p-2 text-center text-sm hover:bg-slate-800 mt-2 md:ml-1`}
         >
             VS
-        </div>
+        </button>
     )
 }
 

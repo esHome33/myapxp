@@ -28,15 +28,15 @@ const BtnHDG = (props: Props) => {
     }
 
     return (
-        <div
+        <button
             onClick={(e) => {
                 e.preventDefault()
                 toggleHDG()
             }}
-            className={`rounded border-2 ${colorHDG(on)} min-w-24 h-10 p-2 text-center text-sm hover:bg-slate-800 mt-2 md:ml-1`}
+            className={`rounded border-2 ${colorHDG(on)} min-w-24 h-14 p-2 text-center text-sm hover:bg-slate-800 mt-2 md:ml-1`}
         >
             HDG
-        </div>
+        </button>
     )
 }
 

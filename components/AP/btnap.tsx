@@ -28,15 +28,19 @@ const BtnAP = (props: Props) => {
     }
 
     return (
-        <div
+        <button
             onClick={(e) => {
                 e.preventDefault()
                 toggleAP()
             }}
-            className={`rounded border-2 ${colorAP()} min-w-24 h-10 p-2 text-center text-sm hover:bg-slate-800 mt-2`}
+            className={`rounded border-2 
+                ${colorAP()} w-16 h-10 p-2 
+                text-blue-900 dark:text-white
+                bg-teal-100 dark:bg-transparent
+                text-center text-sm hover:bg-slate-800 mt-2`}
         >
             AP
-        </div>
+        </button>
     )
 }
 
